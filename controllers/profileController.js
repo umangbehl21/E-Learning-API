@@ -49,8 +49,7 @@ const uploadProfilePicture = async (req, res) => {    try {
       const userId = req.user.id;
 
     // Update user's profile picture in the database
-      await knexInstance('users').where({ id: userId }).update({ profile_picture: result.public_id });
-  
+      await knexInstance('users').where('id', userId).update({ profile_picture: result.public_id });
       // Respond with success message
       res.json({ message: 'Profile picture updated successfully', imageUrl: result.secure_url });
     } catch (error) {

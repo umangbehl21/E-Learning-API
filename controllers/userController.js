@@ -163,7 +163,7 @@ const createAdmin =  async (req, res) => {
 const getEnrolledCourses = async (req, res) => {
   try {
     // Extract user ID from the authenticated token
-    const userId = req.user.userId
+    const userId = req.user.userId;
     
     // Extract page and limit parameters from the request query
     const page = req.query.page ? parseInt(req.query.page) : 1; // Default to page 1 if not provided

@@ -166,12 +166,19 @@ const getEnrolledCourses = async (req, res) => {
   try {
     // Extract user ID from the authenticated token
     const userId = req.user.userId;
+    
+    // Extract page and limit parameters from the request query
+    const page = req.query.page ? parseInt(req.query.page) : 1; // Default to page 1 if not provided
+    const limit = req.query.limit ? parseInt(req.query.limit) : 10; // Default limit to 10 if not provided
+    const offset = (page - 1) * limit; // Calculate the offset offset is set to 40, it means that the database query will start retrieving records from the 41st record onwards.
 
-    // Fetch the courses in which the user is enrolled
+    // Fetch the enrolled courses with pagination
     const enrolledCourses = await knexInstance('courses')
       .join('user_course_enrollments', 'courses.id', '=', 'user_course_enrollments.course_id')
       .where('user_course_enrollments.user_id', userId)
-      .select('courses.*');
+      .select('courses.*')
+      .limit(limit)
+      .offset(offset);
 
     // Return the list of enrolled courses
     res.status(200).json(enrolledCourses);

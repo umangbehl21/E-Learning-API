@@ -38,15 +38,15 @@ const uploadProfilePicture = async (req, res) => {    try {
   // Controller function for updating a profile picture
   const updateProfilePicture = async (req, res) => {
     try {
-      const profilePicture = req.file.profilePicture;
-      if (!req.files || !req.files.profilePicture) {
+      const profilePicture = req.file.fieldname;
+      if (!req.file || !profilePicture) {
         return res.status(400).json({ error: 'No file uploaded' });
       }
   
       // Upload new image to Cloudinary
-      const result = await cloudinary.uploader.upload(profilePicture.tempFilePath);
+      const result = await cloudinary.uploader.upload(req.file.path);
     // Get user ID from authentication (pseudo-code)
-      const userId = req.user.id;
+      const userId = req.user.userId;
 
     // Update user's profile picture in the database
       await knexInstance('users').where('id', userId).update({ profile_picture: result.public_id });

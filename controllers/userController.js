@@ -214,7 +214,7 @@ const filterCourses = async (req,res)=>
 }
 const generateVerificationCode = () => {
   // Define the length of the verification code
-  const codeLength = 6; // You can adjust the length as needed
+  const codeLength = 6; 
 
   // Define the characters allowed in the verification code
   const characters = '0123456789';
@@ -280,43 +280,3 @@ const resetPassword = async (req, res) => {
 
 
 module.exports = { registerUser, loginUser , userDetails , updateUserProfile , createAdmin , getEnrolledCourses , filterCourses , initiateForgotPassword , resetPassword};
-
-
-
-
-/**const registerUser = async (req, res) => {
-  try {
-    // Validate request body against user registration schema
-    const { error, value } = validateUserRegistration(req.body);
-
-    // If validation fails, respond with error messages
-    if (error) {
-      return res.status(400).json({ error: error.details[0].message });
-    }
-
-    // Check if the email is already registered
-    const existingUser = await knexInstance('users').where('email', value.email).first();
-    if (existingUser) {
-      return res.status(400).json({ error: 'Email already registered.' });      
-    }
-
-    // Hash the password securely
-    const hashedPassword = await bcrypt.hash(value.password, 10);
-
-    // Insert user data into the database
-    await knexInstance('users').insert({
-      name: value.name,
-      email: value.email,
-      password: hashedPassword,
-      profile_picture: null,
-    });
-
-    // Respond with success message
-    res.status(200).json({ message: 'User registered successfully.' });
-  } catch (error) {
-    // Handle errors
-    console.error('Error during user registration:', error);
-    res.status(500).json({ error: 'Internal server error.' });
-  }
-};
-can you make this function vary that   when user successfully register the registration successfull goes to the user email user also provides its email during registration in json body  */

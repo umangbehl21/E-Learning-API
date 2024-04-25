@@ -5,7 +5,7 @@ const { JWT_SECRET } = process.env;
 const authenticateToken = (req, res, next) => {
     // Extract the JWT token from the request cookies
     // console.log(req)
-    const token = req.cookies.jwt_token; // Assuming the cookie name is 'jwt_token'
+    const token = req.cookies.jwt_token;
 
     // If no token is provided, return a 401 Unauthorized response
     if (!token) {

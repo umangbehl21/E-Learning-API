@@ -10,7 +10,7 @@ const knexConfig = require('../knexfile');
 const knexInstance = knex(knexConfig.development); // Use knexConfig.development for the PostgreSQL configuration
 
 
-// Initialize Resend with your API key
+// Initialize Resend with API key
 const resend = new Resend(process.env.EMAIL_API_KEY);
 
 // Function to send a registration confirmation email
@@ -64,7 +64,7 @@ const sendCourseEnrollmentNotification = async (userId, courseId) => {
   
       // Send the email using Resend's SDK
       const { data, error } = await resend.emails.send({
-        from: 'BestTechCourses <onboarding@resend.dev>', // Replace with your organization's email address
+        from: 'BestTechCourses <onboarding@resend.dev>', 
         to: [user.email], // Send the email to the enrolled user's email address
         subject: 'Course Enrollment Notification',
         html: emailContent,

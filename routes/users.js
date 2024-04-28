@@ -3,14 +3,14 @@ const router = express.Router();
 const {registerUser , loginUser , userDetails , updateUserProfile , createAdmin , getEnrolledCourses , filterCourses , initiateForgotPassword , resetPassword} = require('../controllers/userController')
 const {authenticateToken , checkAdmin} = require('../middlewares/authMiddleware');
 const {createCourse , enrollment, deleteCourse , updateCourse} = require('../controllers/courseController')
-const {updateProfilePicture , uploadProfilePicture} = require('../controllers/profileController')
+const {updateProfilePicture} = require('../controllers/profileController')
 const upload = require("../multer")
-// const upload = multer('../multer')
-router.post('/register', registerUser);
 
-router.post('/login', loginUser);
+router.post('/register',registerUser)
 
-router.get('/profile', authenticateToken , userDetails);
+router.post('/login', loginUser)
+
+router.get('/profile', authenticateToken , userDetails); 
 
 router.put('/profile', authenticateToken, updateUserProfile)
 
@@ -31,10 +31,8 @@ router.get('/filtercourses',filterCourses)
 // Route for initiating forgot password process
 router.get('/forgotpassword',initiateForgotPassword);
 
-// Route for resetting password
+// Route for reseting password
 router.post('/forgotpassword/reset', resetPassword);
-
-router.post('/upload-profile-picture', authenticateToken ,upload.single('profilePicture'), uploadProfilePicture);
 
 // Update Profile Picture Route
 router.put('/update-profile-picture', authenticateToken, upload.single('profilePicture'),updateProfilePicture);
